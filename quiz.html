@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Das Rätsel - Wohin geht die Reise</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background-color: #eef2f7;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      .quiz-container {
+        background: white;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 450px;
+        width: 100%;
+      }
+      h1 {
+        color: #2c3e50;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      .image-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .image-item {
+        width: 32%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .image-item img {
+        width: 100%;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 2px solid #eef2f7;
+        transition: transform 0.2s;
+      }
+      .image-item img:hover {
+        transform: scale(1.05);
+      }
+      .image-caption {
+        font-size: 13px;
+        color: #7f8c8d;
+        margin-top: 6px;
+        font-weight: 500;
+        line-height: 1.2;
+      }
+      input {
+        width: 85%;
+        padding: 12px;
+        font-size: 16px;
+        border: 2px solid #bdc3c7;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        text-align: center;
+        outline: none;
+        transition: all 0.3s;
+        box-sizing: border-box;
+      }
+      input:focus {
+        border-color: #3498db;
+      }
+      button {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        width: 85%;
+        font-weight: bold;
+        transition: background 0.2s;
+      }
+      button:hover {
+        background-color: #2980b9;
+      }
+      #result {
+        margin-top: 20px;
+        font-weight: bold;
+        font-size: 18px;
+        padding: 10px;
+        border-radius: 8px;
+        display: none;
+      }
+      .correct {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+      .wrong {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="quiz-container">
+      <h1>Finde das Reiseziel raus! 🔍</h1>
+
+      <div class="image-container">
+        <div class="image-item">
+          <img src="https://naturium-am-inn.eu" alt="Hinweis Bild 1" />
+          <div class="image-caption">ganzes Wort</div>
+        </div>
+
+        <div class="image-item">
+          <img src="https://zvw.de" alt="Hinweis Bild 2" />
+          <div class="image-caption">erster Buchstabe</div>
+        </div>
+
+        <div class="image-item">
+          <img src="https://gstatic.com" alt="Hinweis Bild 3" />
+          <div class="image-caption">u statt ü</div>
+        </div>
+      </div>
+
+      <input
+        type="text"
+        id="answerInput"
+        placeholder="Deine Lösung eingeben..."
+        autocomplete="off"
+        autofocus
+      />
+      <br />
+      <button onclick="checkAnswer()">Antwort überprüfen</button>
+      <div id="result"></div>
+    </div>
+
+    <script>
+      function checkAnswer() {
+        const inputField = document.getElementById("answerInput");
+        const resultField = document.getElementById("result");
+        const userAnswer = inputField.value.trim().toLowerCase();
+
+        if (userAnswer === "innsbruck") {
+          resultField.textContent = "Richtig! 🎉 Wir fahren nach Innsbruck!";
+          resultField.className = "correct";
+          resultField.style.display = "block";
+        } else if (userAnswer === "") {
+          resultField.textContent = "Bitte gib zuerst eine Antwort ein! ⚠️";
+          resultField.className = "wrong";
+          resultField.style.display = "block";
+        } else {
+          resultField.textContent = `Falsch! ❌ Wir fahren leider nicht nach ${inputField.value.trim()}. Wird aber bestimmt trotzdem schön`;
+          resultField.className = "wrong";
+          resultField.style.display = "block";
+        }
+      }
+
+      document
+        .getElementById("answerInput")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            checkAnswer();
+          }
+        });
+    </script>
+  </body>
+</html>
